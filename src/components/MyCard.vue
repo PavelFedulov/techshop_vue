@@ -2,12 +2,12 @@
   <div class="card">
     <img
         class="card__img"
-        src="{{card.pic}}"
+        :src="card.pic"
         alt="{{ card.model }}"
     />
     <h3 class="card__title">{{ card.model }}</h3>
-    <p class="card__subtitle">05.05.2023</p>
-    <my-button>Купить</my-button>
+    <p class="card__subtitle">{{ card.subtitle }}</p>
+    <my-button class="buy__btn" @click="showOrder">Купить</my-button>
   </div>
 </template>
 
@@ -21,6 +21,16 @@ export default {
     card: {
       type: Object,
       required: true
+    },
+    show: {
+      type: Boolean,
+      default: false
+    },
+
+  },
+  methods: {
+    showOrder() {
+      this.orderFormVisible = true;
     }
   }
 }
@@ -48,5 +58,14 @@ export default {
   margin: 15px auto 15px 0;
 }
 
+img {
+  width: 100%;
+  height: auto;
 
+}
+
+.buy__btn {
+  padding: 10px;
+  margin-top: 15px;
+}
 </style>

@@ -13,6 +13,7 @@
           >
             {{ item.companyTitle }}
           </li>
+<!--          <li><my-button class="crt__btn" @click="showDialog">Создать карточку</my-button></li>-->
         </ul>
       </nav>
 
@@ -21,15 +22,21 @@
 </template>
 
 <script>
+import MyButton from "@/components/UI/MyButton.vue";
+
 export default {
+  dialogVisible: false,
+  components: {MyButton},
   props: {
     menuItems: {
       type: Array,
       required: true
     }
   },
-  data() {
-    return {}
+  methods: {
+    showDialog() {
+      this.dialogVisible = true;
+    }
   }
 }
 </script>
@@ -58,6 +65,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding-top: 2%;
+  padding-right: 15px;
 }
 
 .header__logo {
@@ -95,4 +103,10 @@ export default {
 li {
   list-style-type: none;
 }
+
+.crt__btn {
+  margin-right: 15px;
+}
+
+
 </style>

@@ -13,12 +13,15 @@ export default {
 
 <style scoped>
 .btn {
-  margin-top: 15px;
   border: none;
   background-color: rgba(112, 99, 198, 1);
   border-radius: 8px;
-  width: 100%;
+  width: auto;
   height: 100%;
   color: aliceblue;
+}
+
+.btn:hover {
+  opacity: .50;
 }
 </style>
