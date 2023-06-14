@@ -33,11 +33,6 @@ export default {
       required: true
     }
   },
-  methods: {
-    showDialog() {
-      this.dialogVisible = true;
-    }
-  }
 }
 </script>
 

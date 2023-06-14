@@ -7,7 +7,7 @@
     />
     <h3 class="card__title">{{ card.model }}</h3>
     <p class="card__subtitle">{{ card.subtitle }}</p>
-    <my-button class="buy__btn" @click="showOrder">Купить</my-button>
+    <my-button class="buy__btn" @click="showOrder">BUY</my-button>
   </div>
 </template>
 

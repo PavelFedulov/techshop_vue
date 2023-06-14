@@ -39,10 +39,17 @@ export default {
 </script>
 
 <style scoped>
+
+form{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .crt__btn-form {
-  padding: 15px;
-  width: 100%;
+  padding: 10px;
+  width: 30%;
   margin-top: 15px;
+
 }
 .crt__btn-form:hover {
   opacity: .75;

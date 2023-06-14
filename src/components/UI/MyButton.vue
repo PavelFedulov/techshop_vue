@@ -15,7 +15,7 @@ export default {
 .btn {
   border: none;
   background-color: rgba(112, 99, 198, 1);
-  border-radius: 8px;
+  border-radius: 10px;
   width: auto;
   height: 100%;
   color: aliceblue;

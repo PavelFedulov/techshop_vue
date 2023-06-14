@@ -5,7 +5,7 @@
     <my-create-form @create="createCard"/>
   </my-dialog>
   <my-dialog v-model:show="orderFormVisible">
-    <my-order-form @create="createOrder"/>
+    <my-order-form @create="createOrder" :device-colors="deviceColors"/>
   </my-dialog>
   <my-cards :cards="cards"/>
   <my-button @click="showOrder">Show</my-button>
@@ -34,10 +34,10 @@ export default {
         {companyTitle: 'Samsung'},
         {companyTitle: 'Xiaomi'}
       ],
-      options: [
-        {value: "Black"},
-        {value: "Gold"},
-        {value: "Silver"}
+      deviceColors: [
+        {color: "Black"},
+        {color: "Gold"},
+        {color: "Silver"}
       ]
       // cards: [
       //   {
