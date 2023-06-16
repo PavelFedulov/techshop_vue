@@ -7,7 +7,7 @@
     />
     <h3 class="card__title">{{ card.model }}</h3>
     <p class="card__subtitle">{{ card.subtitle }}</p>
-    <my-button class="buy__btn" @click="showOrder">BUY</my-button>
+    <my-button class="buy__btn">BUY</my-button>
   </div>
 </template>
 
@@ -26,12 +26,6 @@ export default {
       type: Boolean,
       default: false
     },
-
-  },
-  methods: {
-    showOrder() {
-      this.orderFormVisible = true;
-    }
   }
 }
 </script>

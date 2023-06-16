@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent class="order__form">
+    <h3></h3>
     <h4 class="count__title">Choose the count</h4>
     <my-input
         class=count__field
@@ -13,20 +14,6 @@
         :device-colors="deviceColors"
         v-model="order.selectedColor"
     />
-<!--    <select-->
-<!--        v-model="order.selectedColor"-->
-<!--        class="color__field"-->
-<!--        @change="changeColor"-->
-<!--        @input="$emit('update:order.selectedColor', $event.target.value)">-->
-<!--      <option disabled value="">Choose the color</option>-->
-<!--      <option v-for="color in deviceColors"-->
-<!--              :key="color.color"-->
-<!--              value="{{color.color}}"-->
-<!--              @input="$emit('input', $event.target.value)"-->
-<!--      >-->
-<!--        {{ color.color }}-->
-<!--      </option>-->
-<!--    </select>-->
 
     <h4 class="comment__title">Write you comment for the order</h4>
     <my-input
@@ -53,7 +40,7 @@ export default {
     deviceColors: {
       type: Array,
       required: true
-    }
+    },
   },
   data() {
     return {
@@ -75,7 +62,7 @@ export default {
         selectedColor: this.order.selectedColor,
         comment: this.order.comment,
       }
-      console.log(this.order);
+      console.log(this.modelName);
     },
     changeColor(event) {
       this.$emit('update:order.selectedColor', event.target.value)
@@ -101,13 +88,6 @@ ul {
 .color__title {
   margin-top: 5%;
   margin-bottom: 5%;
-}
-
-.color__field {
-  width: 100%;
-  border: solid 1px rgba(0, 0, 0, .197);
-  border-radius: 10px;
-  padding: 10px;
 }
 
 .comment__title {

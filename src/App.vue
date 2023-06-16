@@ -1,14 +1,16 @@
 <template>
   <my-header :menu-items="menuItems"></my-header>
-  <my-button class="crt__btn" @click="showDialog">Create</my-button>
-  <my-dialog v-model:show="dialogVisible">
+  <my-button class="crt__btn" @click="showCreationForm">Create</my-button>
+  <my-dialog v-model:show="creationFormVisible">
     <my-create-form @create="createCard"/>
   </my-dialog>
   <my-dialog v-model:show="orderFormVisible">
-    <my-order-form @create="createOrder" :device-colors="deviceColors" orders="orders"/>
+    <my-order-form @create="createOrder" :device-colors="deviceColors" orders="orders" model-name="{{ modelName }}"/>
   </my-dialog>
-  <my-cards :cards="cards"/>
-  <my-button @click="showOrder">Show</my-button>
+  <my-cards
+      :cards="cards"
+      @click="showOrder"
+  />
 </template>
 
 <script>
@@ -27,7 +29,8 @@ export default {
     return {
       cards: [],
       orders: [],
-      dialogVisible: false,
+      modelName: '',
+      creationFormVisible: false,
       orderFormVisible: false,
       menuItems: [
         {companyTitle: 'Apple'},
@@ -73,17 +76,17 @@ export default {
       this.orderFormVisible = false;
       console.log(this.orders);
     },
-    showDialog() {
-      this.dialogVisible = true;
+    showCreationForm() {
+      this.creationFormVisible = true;
     },
     showOrder() {
       this.orderFormVisible = true;
+      this.modelName = this.cards[0].model.toString();
     },
     async fetchCards() {
       try {
         const response = await axios.get('https://mocki.io/v1/957d8fd4-d1dd-4a38-bb63-053af9e4196f');
         this.cards = response.data;
-        console.log(this.cards);
       } catch (e) {
         alert('Error')
       }
