@@ -5,7 +5,7 @@
     <my-create-form @create="createCard"/>
   </my-dialog>
   <my-dialog v-model:show="orderFormVisible">
-    <my-order-form @create="createOrder" :device-colors="deviceColors"/>
+    <my-order-form @create="createOrder" :device-colors="deviceColors" orders="orders"/>
   </my-dialog>
   <my-cards :cards="cards"/>
   <my-button @click="showOrder">Show</my-button>
@@ -71,6 +71,7 @@ export default {
     createOrder(order) {
       this.orders.push(order);
       this.orderFormVisible = false;
+      console.log(this.orders);
     },
     showDialog() {
       this.dialogVisible = true;

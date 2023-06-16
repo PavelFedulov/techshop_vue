@@ -1,30 +1,44 @@
 <template>
   <form @submit.prevent class="order__form">
     <h4 class="count__title">Choose the count</h4>
-    <my-input class=count__field type="Number" min="1"></my-input>
+    <my-input
+        class=count__field
+        type="Number"
+        min="1"
+        v-model="order.count"
+    />
     <h4 class="color__title">Choose the color</h4>
-    <!--    <ul class="color__list">-->
-    <!--      <li-->
-    <!--          class="color__item"-->
-    <!--          v-for="color in deviceColors"-->
-    <!--          :key="color.color"-->
-    <!--      >-->
-    <select v-model="selected" class="color__field">
-      <option disabled value="">Choose the color</option>
-      <option v-for="color in deviceColors"
-              :key="color.color"
-      >
-        {{ color.color }}
-      </option>
-    </select>
-    <!--        <input type="radio" :value="color.color" name="color"/>-->
-    <!--        <label>{{ color.color }}</label>-->
 
-    <!--      </li>-->
-    <!--    </ul>-->
+    <my-select-color
+        :device-colors="deviceColors"
+        v-model="order.selectedColor"
+    />
+<!--    <select-->
+<!--        v-model="order.selectedColor"-->
+<!--        class="color__field"-->
+<!--        @change="changeColor"-->
+<!--        @input="$emit('update:order.selectedColor', $event.target.value)">-->
+<!--      <option disabled value="">Choose the color</option>-->
+<!--      <option v-for="color in deviceColors"-->
+<!--              :key="color.color"-->
+<!--              value="{{color.color}}"-->
+<!--              @input="$emit('input', $event.target.value)"-->
+<!--      >-->
+<!--        {{ color.color }}-->
+<!--      </option>-->
+<!--    </select>-->
+
     <h4 class="comment__title">Write you comment for the order</h4>
-    <my-input class="comment__field" placeholder="Write your comment here..."/>
-    <my-button class="order__btn" @click="createOrder">Order</my-button>
+    <my-input
+        v-model="order.comment"
+        class="comment__field"
+        placeholder="Write your comment here..."
+    />
+    <my-button
+        class="order__btn"
+        @click="createOrder"
+    >Order
+    </my-button>
   </form>
 </template>
 
@@ -32,21 +46,39 @@
 import MyInput from "@/components/UI/MyInput.vue";
 import MyRadio from "@/components/UI/MyRadio.vue";
 import MyButton from "@/components/UI/MyButton.vue";
+import MySelectColor from "@/components/UI/MySelectColor.vue";
+
 export default {
   props: {
     deviceColors: {
       type: Array,
       required: true
-    },
-    orders: {
-      type: Array,
-      required: true,
     }
   },
-  components: {MyRadio, MyInput, MyButton}
+  data() {
+    return {
+      order: {
+        count: '',
+        selectedColor: '',
+        comment: '',
+      }
+    }
+  },
+  components: {MySelectColor, MyRadio, MyInput, MyButton},
+
   methods: {
     createOrder() {
-
+      this.order.id = Date.now();
+      this.$emit('create', this.order);
+      this.order = {
+        count: this.order.count,
+        selectedColor: this.order.selectedColor,
+        comment: this.order.comment,
+      }
+      console.log(this.order);
+    },
+    changeColor(event) {
+      this.$emit('update:order.selectedColor', event.target.value)
     }
   }
 }
@@ -86,6 +118,7 @@ ul {
   border: solid 1px rgba(0, 0, 0, .197);
   border-radius: 10px;
 }
+
 .order__btn {
   margin-top: 15px;
   padding: 10px;
