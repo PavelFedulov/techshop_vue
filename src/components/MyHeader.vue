@@ -27,12 +27,20 @@ import MyButton from "@/components/UI/MyButton.vue";
 export default {
   dialogVisible: false,
   components: {MyButton},
-  props: {
-    menuItems: {
-      type: Array,
-      required: true
+  data() {
+    return {
+      menuItems: [
+        {companyTitle: 'Apple'},
+        {companyTitle: 'Samsung'},
+        {companyTitle: 'Xiaomi'}
+      ],
     }
-  },
+  }
+  // props: {
+  //   menuItems: {
+  //     type: Array,
+  //     required: true
+  //   }
 }
 </script>
 

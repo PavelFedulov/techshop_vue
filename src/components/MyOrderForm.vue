@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent class="order__form">
-    <h3></h3>
+    <h3>{{ modelName }}</h3>
     <h4 class="count__title">Choose the count</h4>
     <my-input
         class=count__field
@@ -41,6 +41,10 @@ export default {
       type: Array,
       required: true
     },
+    modelName: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {

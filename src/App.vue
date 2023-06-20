@@ -1,19 +1,21 @@
 <template>
-  <my-header :menu-items="menuItems"></my-header>
+  <my-header></my-header>
   <my-button class="crt__btn" @click="showCreationForm">Create</my-button>
   <my-dialog v-model:show="creationFormVisible">
     <my-create-form @create="createCard"/>
   </my-dialog>
   <my-dialog v-model:show="orderFormVisible">
-    <my-order-form @create="createOrder" :device-colors="deviceColors" orders="orders" model-name="{{ modelName }}"/>
+    <my-order-form @create="createOrder" :device-colors="deviceColors" orders="orders" :model-name="modelName"/>
   </my-dialog>
   <my-cards
       :cards="cards"
-      @click="showOrder"
+      @click="showOrder()"
   />
 </template>
 
 <script>
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import MyHeader from "@/components/MyHeader.vue";
 import MyCard from "@/components/MyCard.vue";
 import MyCards from "@/components/MyCards.vue";
@@ -26,17 +28,28 @@ import MyOrderForm from "@/components/MyOrderForm.vue";
 export default {
   components: {MyOrderForm, MyButton, MyCreateForm, MyDialog, MyCards, MyCard, MyHeader},
   data() {
+    const firebaseConfig = {
+      apiKey: "AIzaSyBYjDHskI75v2U7J8F-8U4YI6_N-pSnlfI",
+      authDomain: "techshop1-aa19c.firebaseapp.com",
+      projectId: "techshop1-aa19c",
+      storageBucket: "techshop1-aa19c.appspot.com",
+      messagingSenderId: "351865063171",
+      appId: "1:351865063171:web:7d13e1348414a1b96d4b36",
+      measurementId: "G-15DEYHXCXM"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
     return {
       cards: [],
       orders: [],
       modelName: '',
       creationFormVisible: false,
       orderFormVisible: false,
-      menuItems: [
-        {companyTitle: 'Apple'},
-        {companyTitle: 'Samsung'},
-        {companyTitle: 'Xiaomi'}
-      ],
+      // menuItems: [
+      //   {companyTitle: 'Apple'},
+      //   {companyTitle: 'Samsung'},
+      //   {companyTitle: 'Xiaomi'}
+      // ],
       deviceColors: [
         {color: "Black"},
         {color: "Gold"},
@@ -79,9 +92,10 @@ export default {
     showCreationForm() {
       this.creationFormVisible = true;
     },
-    showOrder() {
+    showOrder(card) {
       this.orderFormVisible = true;
       this.modelName = this.cards[0].model.toString();
+      console.log(this.modelName)
     },
     async fetchCards() {
       try {
