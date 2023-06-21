@@ -107,9 +107,4 @@ li {
   list-style-type: none;
 }
 
-.crt__btn {
-  margin-right: 15px;
-}
-
-
 </style>
