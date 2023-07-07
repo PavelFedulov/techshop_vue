@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import MyHeader from "@/components/MyHeader.vue";
 import MyCard from "@/components/MyCard.vue";
 import MyCards from "@/components/MyCards.vue";
@@ -28,17 +26,6 @@ import MyOrderForm from "@/components/MyOrderForm.vue";
 export default {
   components: {MyOrderForm, MyButton, MyCreateForm, MyDialog, MyCards, MyCard, MyHeader},
   data() {
-    const firebaseConfig = {
-      apiKey: "AIzaSyBYjDHskI75v2U7J8F-8U4YI6_N-pSnlfI",
-      authDomain: "techshop1-aa19c.firebaseapp.com",
-      projectId: "techshop1-aa19c",
-      storageBucket: "techshop1-aa19c.appspot.com",
-      messagingSenderId: "351865063171",
-      appId: "1:351865063171:web:7d13e1348414a1b96d4b36",
-      measurementId: "G-15DEYHXCXM"
-    };
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
     return {
       cards: [],
       orders: [],
@@ -92,7 +79,7 @@ export default {
     showCreationForm() {
       this.creationFormVisible = true;
     },
-    showOrder(card) {
+    showOrder() {
       this.orderFormVisible = true;
       this.modelName = this.cards[0].model.toString();
       console.log(this.modelName)

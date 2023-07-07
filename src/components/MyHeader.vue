@@ -13,34 +13,44 @@
           >
             {{ item.companyTitle }}
           </li>
-<!--          <li><my-button class="crt__btn" @click="showDialog">Создать карточку</my-button></li>-->
         </ul>
       </nav>
-
     </header>
   </div>
 </template>
 
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "@/firebase/firebase";
 
 export default {
+
   dialogVisible: false,
+
   components: {MyButton},
   data() {
     return {
-      menuItems: [
-        {companyTitle: 'Apple'},
-        {companyTitle: 'Samsung'},
-        {companyTitle: 'Xiaomi'}
-      ],
+      menuItems: [],
     }
-  }
-  // props: {
-  //   menuItems: {
-  //     type: Array,
-  //     required: true
-  //   }
+  },
+
+  methods: {
+    async getHeaderItems() {
+      const querySnapshot = await getDocs(collection(db, "menuItems"));
+      querySnapshot.forEach((doc) => {
+        const menuItem = {
+          id: doc.id,
+          companyTitle: doc.data().companyTitle,
+
+        }
+        this.menuItems.push(menuItem);
+      });
+    }
+  },
+  mounted() {
+    this.getHeaderItems()
+  },
 }
 </script>
 
@@ -106,10 +116,5 @@ export default {
 li {
   list-style-type: none;
 }
-
-.crt__btn {
-  margin-right: 15px;
-}
-
 
 </style>
