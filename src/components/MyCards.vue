@@ -12,16 +12,36 @@
 
 <script>
 import MyCard from "@/components/MyCard.vue";
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "@/firebase/firebase";
 
 export default {
   components: {MyCard},
-  props: {
-    cards: {
-      type: Array,
-      required: true
+  data() {
+    return {
+      cards: []
     }
+  },
+
+  methods: {
+    async getCards() {
+      const querySnapshot = await getDocs(collection(db, "cards"));
+      querySnapshot.forEach((doc) => {
+        const card = {
+          id: doc.id,
+          pic: doc.data().pic,
+          model: doc.data().model
+
+        }
+        this.cards.push(card);
+      });
+    }
+  },
+  mounted() {
+    this.getCards()
   }
 }
+
 
 </script>
 
@@ -33,6 +53,7 @@ export default {
   column-gap: 57px;
   row-gap: 57px;
 }
+
 .wrapper__full {
   max-width: 1080px;
   margin: 0 auto;

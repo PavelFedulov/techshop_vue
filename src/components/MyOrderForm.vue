@@ -1,6 +1,5 @@
 <template>
   <form @submit.prevent class="order__form">
-    <h3>{{ modelName }}</h3>
     <h4 class="count__title">Choose the count</h4>
     <my-input
         class=count__field
@@ -36,27 +35,28 @@ import MyButton from "@/components/UI/MyButton.vue";
 import MySelectColor from "@/components/UI/MySelectColor.vue";
 
 export default {
-  props: {
-    deviceColors: {
-      type: Array,
-      required: true
-    },
-    modelName: {
-      type: String,
-      required: true
-    }
-  },
+  components: {MySelectColor, MyRadio, MyInput, MyButton},
+  // props: {
+  //   modelName: {
+  //     type: String,
+  //     required: true
+  //   }
+  // },
   data() {
     return {
       order: {
         count: '',
         selectedColor: '',
         comment: '',
-      }
+      },
+
+      deviceColors: [
+        {color: "Black"},
+        {color: "Gold"},
+        {color: "Silver"}
+      ]
     }
   },
-  components: {MySelectColor, MyRadio, MyInput, MyButton},
-
   methods: {
     createOrder() {
       this.order.id = Date.now();
@@ -66,13 +66,13 @@ export default {
         selectedColor: this.order.selectedColor,
         comment: this.order.comment,
       }
-      console.log(this.modelName);
     },
     changeColor(event) {
       this.$emit('update:order.selectedColor', event.target.value)
     }
   }
 }
+
 </script>
 
 <style scoped>
